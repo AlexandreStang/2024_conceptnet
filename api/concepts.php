@@ -1,4 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: access, Content-Type, Authorization');
+header("Access-Control-Allow-Credentials: true");
+
 include_once '../server/config/database.php';
 
 $database = new Database();
@@ -7,13 +12,14 @@ $response = array("error" => false);
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     try {
+        // Définir et préparer la requête MySQL
         $query = "SELECT DISTINCT id, start, relation, end FROM facts ORDER BY id";
         $stmt = $db->prepare($query);
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $response['concepts'] = $rows;
-        $response['message'] = 'Fetched the list of the different concepts successfully';
+        $response['message'] = 'Récupération réussie de la liste des différents concepts.';
 
     } catch (PDOException $e) {
         $error = "Error: " . $e->getMessage();
@@ -22,9 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 } else {
     $response['error'] = true;
-    $response['message'] = 'Invalid request method.';
+    $response['message'] = 'Méthode de requête invalide.';
 }
 
-// Return the JSON response
+// Renvoie la réponse JSON
 echo json_encode($response);
 ?>

@@ -12,26 +12,26 @@ $response = array("error" => false);
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     try {
-        // Query the db for number of facts
+        // Définir et préparer la requête MySQL : Calculer le nombre de faits
         $query1 = "SELECT count(*) AS number_of_facts FROM facts";
         $stmt1 = $db->prepare($query1);
         $stmt1->execute();
         $number_of_facts = $stmt1->fetch()['number_of_facts'];
 
 
-        // Query for number of concepts:
+        // Définir et préparer la requête MySQL : Calculer le nombre de concepts
         $query2 = "SELECT COUNT(DISTINCT start) AS number_of_concepts FROM facts";
         $stmt2 = $db->prepare($query2);
         $stmt2->execute();
         $number_of_concepts = $stmt2->fetch()['number_of_concepts'];
 
-        // Query for number of concepts:
+        // Définir et préparer la requête MySQL : Calculer le nombre de relations
         $query3 = "SELECT COUNT(DISTINCT relation) AS number_of_relations FROM facts";
         $stmt3 = $db->prepare($query3);
         $stmt3->execute();
         $number_of_relations = $stmt3->fetch()['number_of_relations'];
 
-        // Query for number of users:
+        // Définir et préparer la requête MySQL : Calculer le nombre d'utilisateurs
         $query4 = "SELECT COUNT(*) AS number_of_users FROM users";
         $stmt4 = $db->prepare($query4);
         $stmt4->execute();
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $response['number_of_concepts'] = $number_of_concepts;
         $response['number_of_relations'] = $number_of_relations;
         $response['number_of_users'] = $number_of_users;
-        $response['message'] = 'Fetched stats successfully.';
+        $response['message'] = 'Statistiques récupérées avec succès.';
 
     } catch (PDOException $e) {
         $error = "Error: " . $e->getMessage();
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $response['message'] = "Error: " . $e->getMessage();
     }
 
-    // Return the JSON response
+    // Renvoie la réponse JSON
     echo json_encode($response);
 }
 ?>

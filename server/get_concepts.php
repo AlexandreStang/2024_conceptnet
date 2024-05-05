@@ -22,6 +22,6 @@ if ($stmt->execute()) {
     echo json_encode($result);
 } else {
     // Erreur
-    http_response_code(500); // Set HTTP response code to 500 (Internal Server Error)
-    echo json_encode(['error' => 'Failed to execute query']);
+    http_response_code(500);
+    echo json_encode(['error' => "Échec de l'exécution de la requête"]);
 }

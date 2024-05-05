@@ -17,39 +17,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_score = null;
 
     try {
-        // Query the db
+        // Définir et préparer la requête MySQL : Trouver le score de l'utilisateur demandé
         $query = "SELECT score FROM users WHERE username = :username";
         $stmt = $db->prepare($query);
-
-        // Bind parameters and run the query
         $stmt->bindParam(':username', $username);
         $stmt->execute();
 
         if ($stmt->rowCount() == 1) {
             if ($row = $stmt->fetch()) {
-                // Update and prepare the new score;
+                // Mettre à jour et préparer la nouveau score
                 $current_score = $row['score'];
                 $new_score = $current_score + $score;
             }
         } else {
-            $error = "Invalid username.";
-            // return to js client that login failed
+            $error = "Nom d'utilisateur invalide.";
+            // Indiquer au JS que la connexion n'a pas pu être établie
             $response['error'] = true;
-            $response['message'] = 'Invalid username.';
+            $response['message'] = $error;
         }
     } catch (PDOException $e) {
         $error = "Error: " . $e->getMessage();
-        // return to js client that login failed
+        // Indiquer au JS que la connexion n'a pas pu être établie
         $response['error'] = true;
         $response['message'] = "Error: " . $e->getMessage();
     }
 
     try {
-        // Query the db
+        // Définir et préparer la requête MySQL : Mettre à jour le score de l'utilisateur demandé
         $query = "UPDATE users SET score = :score WHERE username = :username";
         $stmt = $db->prepare($query);
-
-        // Bind parameters and run the query
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':score', $new_score);
 
@@ -68,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $response['error'] = true;
         $response['message'] = "Error: " . $e->getMessage();
     }
-    // Return the JSON response
 
+    // Renvoie la réponse JSON
     echo json_encode($response);
 }

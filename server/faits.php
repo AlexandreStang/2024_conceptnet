@@ -13,14 +13,14 @@ $response = array("error" => false);
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     try {
-        // Query the db for number of facts
+        // Définir et préparer la requête MySQL : Sélectionner tous les faits
         $query = "SELECT * FROM facts";
         $stmt = $db->prepare($query);
         $stmt->execute();
         $rows = $stmt->fetchAll();
 
         $response['faits'] = $rows;
-        $response['message'] = 'Fetched stats successfully.';
+        $response['message'] = 'Statistiques récupérées avec succès.';
 
     } catch (PDOException $e) {
         $error = "Error: " . $e->getMessage();
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $response['message'] = "Error: " . $e->getMessage();
     }
 
-    // Return the JSON response
+    // Renvoie la réponse JSON
     echo json_encode($response);
 }
 ?>
