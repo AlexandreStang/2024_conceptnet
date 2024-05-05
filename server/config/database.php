@@ -1,8 +1,8 @@
 <?php
 class Database
 {
-    private $host = "localhost"; // TODO: À remplacer avec www-ens.iro.umontreal.ca (probablement)
-    private $db_name = "ift3225db"; // TODO: À renommer (+ celle créée dans les fichiers Python) pour qu'elle fonctionne sur le DIRO
+    private $host = "www-ens.iro.umontreal.ca";
+    private $db_name = "stangale_ift3225_tp2";
     private $username = "hello";
     private $password = "hello";
     public $conn;

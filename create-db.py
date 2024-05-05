@@ -2,8 +2,8 @@ import mysql.connector
 from mysql.connector import Error
 from bs4 import BeautifulSoup
 
-DB_HOST = 'localhost'
-DB_NAME = 'ift3225db'
+DB_HOST = 'www-ens.iro.umontreal.ca'
+DB_NAME = 'stangale_ift3225_tp2'
 DB_USER = 'hello'
 DB_PASSWORD = 'hello'
 
