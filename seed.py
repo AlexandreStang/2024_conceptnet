@@ -3,8 +3,6 @@ import math
 import requests
 import random
 from collections import defaultdict
-import mysql.connector
-from mysql.connector import Error
 
 # base URL de l'API de ConceptNet
 BASE_URL = "http://api.conceptnet.io"
