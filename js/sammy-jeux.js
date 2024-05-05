@@ -323,8 +323,8 @@ function calculateScoreJeuRelated() {
 function showRundown(validConcepts, invalidConcepts) {
     $('#rundown').show();
 
-    console.log(validConcepts);
-    console.log(invalidConcepts);
+    //(validConcepts);
+    //console.log(invalidConcepts);
 
     validConcepts.forEach(function (concept) {
         $('#valid-concepts').append('<li>' + concept + '</li>')
