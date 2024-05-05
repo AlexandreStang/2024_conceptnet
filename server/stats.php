@@ -1,4 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: access, Content-Type, Authorization');
+header("Access-Control-Allow-Credentials: true");
+
 include_once 'config/database.php';
 
 $database = new Database();
