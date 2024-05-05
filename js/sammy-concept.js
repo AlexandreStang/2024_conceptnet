@@ -8,20 +8,38 @@
             let langue = this.params.langue;
             let concept = this.params.concept;
 
-            let query = 'start=/c/' + langue + '/' + concept;
-            let queryURL = baseURL + query + '&limit=1000';
+            // let query = 'start=/c/' + langue + '/' + concept;
+            // let queryURL = baseURL + query + '&limit=1000';
 
             $.ajax({
-                url: queryURL,
-                type: 'GET',
+                url: '../server/get_facts_start.php',
+                method: 'GET',
                 dataType: 'json',
+                data: {
+                    langue: langue,
+                    concept: concept
+                },
                 success: function(response) {
-                    renderTemplate(context, response, query);
+                    renderTemplate(context, response, response['@id']);
                 },
                 error: function(xhr, status, error) {
                     console.error('Erreur lors du chargement des données:', status, error);
                 }
             });
+
+            // Version original (Appel direct)
+            // $.ajax({
+            //     url: queryURL,
+            //     type: 'GET',
+            //     dataType: 'json',
+            //     success: function(response) {
+            //         console.log(response);
+            //         renderTemplate(context, response, query);
+            //     },
+            //     error: function(xhr, status, error) {
+            //         console.error('Erreur lors du chargement des données:', status, error);
+            //     }
+            // });
         });
 
         // TABLE DES FAITS CONCEPTNET (affiche les faits ( :langue/ :concept, :relation,x) pour tout x nœud end dans ConceptNet.)
@@ -30,20 +48,38 @@
             let langue = this.params.langue;
             let concept = this.params.concept;
 
-            let query = 'start=/c/' + langue + '/' + concept + '&rel=/r/' + relation;
-            let queryURL = baseURL + query + '&limit=1000';
+            // let query = 'start=/c/' + langue + '/' + concept + '&rel=/r/' + relation;
+            // let queryURL = baseURL + query + '&limit=1000';
 
             $.ajax({
-                url: queryURL,
-                type: 'GET',
+                url: '../server/get_facts_start_relation.php',
+                method: 'GET',
                 dataType: 'json',
+                data: {
+                    langue: langue,
+                    concept: concept,
+                    relation: relation
+                },
                 success: function(response) {
-                    renderTemplate(context, response, query);
+                    renderTemplate(context, response, response['@id']);
                 },
                 error: function(xhr, status, error) {
                     console.error('Erreur lors du chargement des données:', status, error);
                 }
             });
+
+            // Version original (Appel direct)
+            // $.ajax({
+            //     url: queryURL,
+            //     type: 'GET',
+            //     dataType: 'json',
+            //     success: function(response) {
+            //         renderTemplate(context, response, query);
+            //     },
+            //     error: function(xhr, status, error) {
+            //         console.error('Erreur lors du chargement des données:', status, error);
+            //     }
+            // });
 
         });
 
@@ -51,20 +87,36 @@
         this.get('#/relation/:relation', function(context) {
             let relation = this.params.relation;
 
-            let query = 'rel=/r/' + relation;
-            let queryURL = baseURL + query + '&limit=100';
+            // let query = 'rel=/r/' + relation;
+            // let queryURL = baseURL + query + '&limit=100';
 
             $.ajax({
-                url: queryURL,
-                type: 'GET',
+                url: '../server/get_facts_relation.php',
+                method: 'GET',
                 dataType: 'json',
+                data: {
+                    relation: relation
+                },
                 success: function(response) {
-                    renderTemplate(context, response, query);
+                    renderTemplate(context, response, response['@id']);
                 },
                 error: function(xhr, status, error) {
                     console.error('Erreur lors du chargement des données:', status, error);
                 }
             });
+
+            // Version original (Appel direct)
+            // $.ajax({
+            //     url: queryURL,
+            //     type: 'GET',
+            //     dataType: 'json',
+            //     success: function(response) {
+            //         renderTemplate(context, response, query);
+            //     },
+            //     error: function(xhr, status, error) {
+            //         console.error('Erreur lors du chargement des données:', status, error);
+            //     }
+            // });
         });
     });
 })(jQuery);

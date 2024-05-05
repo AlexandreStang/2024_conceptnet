@@ -446,29 +446,55 @@ function fetchBackupConcept() {
 // Aller chercher des concepts
 function fetchConceptNet(concept) {
     return new Promise(function (resolve, reject) {
-        let language = (concept.start_id.split('/'))[2];
-        let queryURL = 'https://api.conceptnet.io' + concept.start_id;
+        let langue = (concept.start_id.split('/'))[2];
+        let conceptLabel = (concept.start_id.split('/'))[3];
+        // let queryURL = 'https://api.conceptnet.io' + concept.start_id;
 
         $.ajax({
-            url: queryURL,
-            type: 'GET',
+            url: '../server/get_conceptnet.php',
+            method: 'GET',
             dataType: 'json',
+            data: {
+                langue: langue,
+                concept: conceptLabel
+            },
             success: function(response) {
 
                 if(response.edges.length === 0) {
                     reject("Erreur lors de la requête ConceptNet.");
                 }
 
-                let filteredResponse = response.edges.filter(edge => edge.end.language === language
-                    && edge.start.language === language)
+                let filteredResponse = response.edges.filter(edge => edge.end.language === langue
+                    && edge.start.language === langue)
 
                 resolve(filteredResponse);
             },
             error: function(xhr, status, error) {
                 console.error('Erreur lors du chargement des données:', status, error);
-                reject(error);
             }
         });
+
+        // Version original
+        // $.ajax({
+        //     url: queryURL,
+        //     type: 'GET',
+        //     dataType: 'json',
+        //     success: function(response) {
+        //
+        //         if(response.edges.length === 0) {
+        //             reject("Erreur lors de la requête ConceptNet.");
+        //         }
+        //
+        //         let filteredResponse = response.edges.filter(edge => edge.end.language === langue
+        //             && edge.start.language === langue)
+        //
+        //         resolve(filteredResponse);
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.error('Erreur lors du chargement des données:', status, error);
+        //         reject(error);
+        //     }
+        // });
     })
 }
 
