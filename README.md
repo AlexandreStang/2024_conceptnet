@@ -1,4 +1,4 @@
-# ConceptNet-based
+# ConceptNet-based Project
 
 > A website that features a variety of ways to use the ConceptNet API. Users can consult various tables and play two
 > different games about the subject of their choice!
