@@ -24,7 +24,7 @@
 
 1. Set up your MySQL database information (`DB_HOST`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD`) inside the
    file `create-db.py`. Do the same inside  `server/config/database.php`
-2. Inside said file, update the main function to insert a user into the database with your preferred credentials
+2. Inside `create-db.py`, update the main function to insert a user into the database with your preferred credentials
 3. Create a MySQL database by running `python create-db.py`
 4. Launch the project on localhost with `php -S localhost:8888`
 
